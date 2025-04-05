@@ -34,13 +34,14 @@ const getCategoryById = async (req, res) => {
 // Create a new category
 const createCategory = async (req, res) => {
   try {
+    const db = mongodb.getDatabase();
     const category = {
         name: req.body.name,
         description: req.body.description,
         individualName: req.body.individualName,
     };
 
-    const response = await mongodb.getDatabase().db().collection('categories').insertOne(category);
+    const response = await db.collection('categories').insertOne(category);
 
     if (response.acknowledged) {
         return res.status(201).json({ message: "category created successfully.", category });
