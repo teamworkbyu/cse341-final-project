@@ -42,7 +42,8 @@ const createTask = async (req, res) => {
       dueDate: req.body.dueDate,
     };
 
-    const response = await mongodb.getDatabase().db().collection('tasks').insertOne(task);
+    const db = mongodb.getDatabase();
+    const response = await db.collection('tasks').insertOne(task);
 
     if (response.acknowledged) {
       return res.status(201).json({ message: "Task created successfully.", task });

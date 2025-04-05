@@ -1,236 +1,512 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "title": "Task Management API",
-      "description": "API documentation for the Task Management API",
-      "version": "1.0.0"
+  "swagger": "2.0",
+  "info": {
+    "title": "Task Management API",
+    "description": "API documentation for the Task Management API",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8000",
+  "basePath": "/",
+  "schemes": ["http"],
+  "tags": [
+    {
+      "name": "Categories",
+      "description": "Endpoints for managing categories"
     },
-    "host": "localhost:8000",
-    "basePath": "/",
-    "tags": [
-      {
-        "name": "Categories",
-        "description": "Endpoints for managing categories"
-      },
-      {
-        "name": "Tasks",
-        "description": "Endpoints for managing tasks"
-      },
-      {
-        "name": "Users",
-        "description": "Endpoints for managing users"
-      },
-      {
-        "name": "Comments",
-        "description": "Endpoints for managing comments"
-      }
-    ],
-    "schemes": [
-      "http"
-    ],
-    "paths": {
-      "/categories": {
-        "get": {
-          "tags": ["Categories"],
-          "summary": "Get all categories",
-          "description": "Returns a list of all categories",
-          "produces": ["application/json"],
-          "responses": {
-            "200": {
-              "description": "A list of categories",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/Category"
-                }
-              }
-            },
-            "500": {
-              "description": "Internal server error"
-            }
-          }
-        },
-        "post": {
-          "tags": ["Categories"],
-          "summary": "Create a new category",
-          "description": "Creates a new category",
-          "consumes": ["application/json"],
-          "produces": ["application/json"],
-          "parameters": [
-            {
-              "in": "body",
-              "name": "category",
-              "description": "Category object to be created",
-              "required": true,
-              "schema": {
+    {
+      "name": "Tasks",
+      "description": "Endpoints for managing tasks"
+    },
+    {
+      "name": "Users",
+      "description": "Endpoints for managing users"
+    },
+    {
+      "name": "Comments",
+      "description": "Endpoints for managing comments"
+    }
+  ],
+  "paths": {
+    "/categories": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "Get all categories",
+        "responses": {
+          "200": {
+            "description": "A list of categories",
+            "schema": {
+              "type": "array",
+              "items": {
                 "$ref": "#/definitions/Category"
               }
-            }
-          ],
-          "responses": {
-            "201": {
-              "description": "Category created successfully",
-              "schema": {
-                "$ref": "#/definitions/Category"
-              }
-            },
-            "400": {
-              "description": "Invalid input data"
-            },
-            "500": {
-              "description": "Internal server error"
             }
           }
         }
       },
-      "/categories/{id}": {
-        "get": {
-          "tags": ["Categories"],
-          "summary": "Get a category by ID",
-          "description": "Returns a single category",
-          "produces": ["application/json"],
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "required": true,
-              "type": "integer",
-              "description": "ID of the category to retrieve"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Category found",
-              "schema": {
-                "$ref": "#/definitions/Category"
-              }
-            },
-            "404": {
-              "description": "Category not found"
-            },
-            "500": {
-              "description": "Internal server error"
+      "post": {
+        "tags": ["Categories"],
+        "summary": "Create a new category",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "category",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Category"
             }
           }
-        },
-        "put": {
-          "tags": ["Categories"],
-          "summary": "Update a category",
-          "description": "Updates an existing category",
-          "consumes": ["application/json"],
-          "produces": ["application/json"],
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "required": true,
-              "type": "integer",
-              "description": "ID of the category to update"
-            },
-            {
-              "in": "body",
-              "name": "category",
-              "description": "Updated category object",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/Category"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Category updated successfully",
-              "schema": {
-                "$ref": "#/definitions/Category"
-              }
-            },
-            "400": {
-              "description": "Invalid input data"
-            },
-            "404": {
-              "description": "Category not found"
-            },
-            "500": {
-              "description": "Internal server error"
-            }
-          }
-        },
-        "delete": {
-          "tags": ["Categories"],
-          "summary": "Delete a category",
-          "description": "Deletes a category by ID",
-          "produces": ["application/json"],
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "required": true,
-              "type": "integer",
-              "description": "ID of the category to delete"
-            }
-          ],
-          "responses": {
-            "204": {
-              "description": "Category deleted successfully"
-            },
-            "404": {
-              "description": "Category not found"
-            },
-            "500": {
-              "description": "Internal server error"
+        ],
+        "responses": {
+          "201": {
+            "description": "Category created",
+            "schema": {
+              "$ref": "#/definitions/Category"
             }
           }
         }
       }
     },
-    "definitions": {
-      "Category": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "example": 1
+    "/categories/{id}": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "Get category by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category found",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
           },
-          "name": {
-            "type": "string",
-            "example": "Work"
+          "404": {
+            "description": "Category not found"
           }
         }
       },
-      "Task": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "example": 1
+      "put": {
+        "tags": ["Categories"],
+        "summary": "Update a category",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
           },
-          "title": {
-            "type": "string",
-            "example": "Complete project report"
-          },
-          "description": {
-            "type": "string",
-            "example": "Finish the report by end of the week"
-          },
-          "status": {
-            "type": "string",
-            "enum": ["pending", "in_progress", "completed"]
-          },
-          "due_date": {
-            "type": "string",
-            "format": "date-time",
-            "example": "2023-10-01T12:00:00Z"
-          },
-          "category_id": {
-            "type": "integer",
-            "example": 1
-          },
-          "user_id": {
-            "type": "integer",
-            "example": 1
+          {
+            "in": "body",
+            "name": "category",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category updated",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Categories"],
+        "summary": "Delete a category",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Category deleted"
+          }
+        }
+      }
+    },
+    "/tasks": {
+      "get": {
+        "tags": ["Tasks"],
+        "summary": "Get all tasks",
+        "responses": {
+          "200": {
+            "description": "A list of tasks",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Task"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Tasks"],
+        "summary": "Create a new task",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "task",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Task created",
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          }
+        }
+      }
+    },
+    "/tasks/{id}": {
+      "get": {
+        "tags": ["Tasks"],
+        "summary": "Get task by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task found",
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          },
+          "404": {
+            "description": "Task not found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Tasks"],
+        "summary": "Update a task",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "task",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task updated",
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Tasks"],
+        "summary": "Delete a task",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Task deleted"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get all users",
+        "responses": {
+          "200": {
+            "description": "A list of users",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a new user",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get user by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User found",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Users"],
+        "summary": "Update a user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "summary": "Delete a user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User deleted"
+          }
+        }
+      }
+    },
+    "/comments": {
+      "get": {
+        "tags": ["Comments"],
+        "summary": "Get all comments",
+        "responses": {
+          "200": {
+            "description": "A list of comments",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Comment"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Comments"],
+        "summary": "Create a new comment",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "comment",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Comment"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Comment created",
+            "schema": {
+              "$ref": "#/definitions/Comment"
+            }
+          }
+        }
+      }
+    },
+    "/comments/{id}": {
+      "get": {
+        "tags": ["Comments"],
+        "summary": "Get comment by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comment found",
+            "schema": {
+              "$ref": "#/definitions/Comment"
+            }
+          },
+          "404": {
+            "description": "Comment not found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Comments"],
+        "summary": "Update a comment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "comment",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Comment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comment updated",
+            "schema": {
+              "$ref": "#/definitions/Comment"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Comments"],
+        "summary": "Delete a comment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Comment deleted"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Category": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "name": { "type": "string" }
+      }
+    },
+    "Task": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "in_progress", "completed"]
         },
-        "required": ["title", "description", "status", "due_date", "category_id", "user_id"]
+        "due_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "category_id": { "type": "integer" },
+        "user_id": { "type": "integer" }
+      },
+      "required": ["title", "description", "status", "due_date", "category_id", "user_id"]
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" }
+      }
+    },
+    "Comment": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "text": { "type": "string" },
+        "task_id": { "type": "integer" },
+        "user_id": { "type": "integer" }
       }
     }
   }
+}
