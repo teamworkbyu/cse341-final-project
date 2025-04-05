@@ -5,98 +5,100 @@ const ObjectId = require('mongodb').ObjectId;
 // Get all users
 const getUsers = async (req, res) => {
   try {
-    const db = mongodb.getDatabase();
-    const users = await db.collection('users').find({}).toArray();
-    res.status(200).json(users);
+    const result = await mongodb.getDatabase().db().collection('users').find().toArray();
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(result);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ message: "Error retrieving countries", error: error.message });
   }
 };
 
 // Get user by ID
 const getUserById = async (req, res) => {
   try {
-    const db = mongodb.getDatabase();
-    const userId = req.params.id;
-    const user = await db.collection('users').findOne({ _id: ObjectId(userId) });
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-    res.status(200).json(user);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' })
-  }
+        const userId = new ObjectId(req.params.id);
+        const comment = await mongodb.getDatabase().db().collection('users').findOne({ _id: userId });
+    
+        if (!user) {
+            return res.status(404).json({ message: "User not found." });
+        }
+    
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json(comment);
+      } catch (error) {
+        res.status(500).json({ message: "Invalid ID format or server error.", error: error.message });
+      }
 };
 
 // Create a new user
 const createUser = async (req, res) => {
   try {
-    const user = {
-      name: req.body.name,
-      email: req.body.email,
-      favoriteColor: req.body.favoriteColor,
-      age: req.body.age,
-      title: req.body.title,
-      birthDate: req.body.birthDate,
-      birthPlace: req.body.birthPlace,
-    };
-    const db = mongodb.getDatabase();
-    const response = await db.collection('users').insertOne(user);
-
-    if (response.acknowledged) {
-      return res.status(201).json({ message: "User created successfully.", user });
-    } else {
-      return res.status(500).json({ message: "Failed to create user." });
+      const user = {
+          name: req.body.name,
+          email: req.body.email,
+          favoriteColor: req.body.favoriteColor,
+          age: req.body.age,
+          title: req.body.title,
+          birthDate: req.body.birthDate,
+          birthPlace: req.body.birthPlace,
+      };
+  
+      const response = await mongodb.getDatabase().db().collection('users').insertOne(user);
+  
+      if (response.acknowledged) {
+          return res.status(201).json({ message: "User created successfully.", user });
+      } else {
+          return res.status(500).json({ message: "Failed to create user." });
+      }
+    } catch (error) {
+      return res.status(500).json({ message: "Server error", error: error.message });
     }
-  } catch (error) {
-    return res.status(500).json({ message: "Server error", error: error.message })
-  }
 };
 
 // Update a user by ID
 const updateUser = async (req, res) => {
   try {
-    const db = mongodb.getDatabase();
-    const userId = req.params.id;
-    const updatedUser = {
-      name: req.body.name,
-      email: req.body.email,
-      favoriteColor: req.body.favoriteColor,
-      age: req.body.age,
-      title: req.body.title,
-      birthDate: req.body.birthDate,
-      birthPlace: req.body.birthPlace,
-    };
-
-    const response = await db.collection('users').updateOne({ _id: ObjectId(userId) }, { $set: updatedUser });
-
-    if (response.modifiedCount > 0) {
-      return res.status(200).json({ message: "User updated successfully.", updatedUser });
-    } else {
-      return res.status(404).json({ message: "User not found." });
-    }
-  } catch (error) {
-    return res.status(500).json({ message: "Server error", error: error.message })
-  }
+          const userId = new ObjectId(req.params.id);
+          const user = {
+              name: req.body.name,
+              email: req.body.email,
+              favoriteColor: req.body.favoriteColor,
+              age: req.body.age,
+              title: req.body.title,
+              birthDate: req.body.birthDate,
+              birthPlace: req.body.birthPlace,
+          };
+      
+          const response = await mongodb.getDatabase().db().collection('users').updateOne(
+              { _id: userId },
+              { $set: user }
+          );
+      
+          if (response.modifiedCount > 0) {
+              return res.status(200).json({ message: "user updated successfully." });
+          } else {
+              return res.status(404).json({ message: "No changes made or user not found." });
+          }
+        } catch (error) {
+          res.status(500).json({ message: "Failed to update user.", error: error.message });
+        }
 };
 
 // Delete a user by ID
 const deleteUser = async (req, res) => {
   try {
-    const db = mongodb.getDatabase();
-    const userId = req.params.id;
-    const response = await db.collection('users').deleteOne({ _id: ObjectId(userId) });
-
-    if (response.deletedCount > 0) {
-      return res.status(200).json({ message: "User deleted successfully." });
-    } else {
-      return res.status(404).json({ message: "User not found." });
-    }
-  } catch (error) {
-    return res.status(500).json({ message: "Server error", error: error.message })
-  }
+        const userId = new ObjectId(req.params.id);
+    
+        const response = await mongodb.getDatabase().db().collection('users').deleteOne({ _id: userId });
+    
+        if (response.deletedCount > 0) {
+            return res.status(200).json({ message: "User deleted successfully." });
+        } else {
+            return res.status(404).json({ message: "User not found or already deleted." });
+        }
+      } catch (error) {
+        res.status(500).json({ message: "Failed to delete user.", error: error.message });
+      }
 };
 
 // Export the functions to be used in routes

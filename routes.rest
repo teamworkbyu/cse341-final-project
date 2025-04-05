@@ -1,0 +1,15 @@
+
+### GET all users
+GET http://localhost:8000/users
+
+### GET a user by ID
+GET http://localhost:8000/users/{id}
+
+### POST a new user
+POST http://localhost:8000/users
+
+### UPDATE a user by ID
+PUT http://localhost:8000/users/{id}
+
+### DELETE a user by ID
+DELETE http://localhost:8000/users/{id}
