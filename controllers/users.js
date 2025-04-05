@@ -42,8 +42,13 @@ const createUser = async (req, res) => {
       birthDate: req.body.birthDate,
       birthPlace: req.body.birthPlace,
     };
+<<<<<<< HEAD
 
     const response = await mongodb.getDatabase().db().collection('users').insertOne(user);
+=======
+    const db = mongodb.getDatabase();
+    const response = await db.collection('users').insertOne(user);
+>>>>>>> 0f99f7afb6e624a5e6e6f4d534d73784becd2f5d
 
     if (response.acknowledged) {
       return res.status(201).json({ message: "User created successfully.", user });

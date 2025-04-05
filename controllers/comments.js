@@ -33,12 +33,20 @@ const getCommentById = async (req, res) => {
 // Create a new comment
 const createComment = async (req, res) => {
   try {
+<<<<<<< HEAD
+=======
+    const db = mongodb.getDatabase();
+>>>>>>> 0f99f7afb6e624a5e6e6f4d534d73784becd2f5d
     const comment = {
       description: req.body.description,
       completion: req.body.completion,
     };
 
+<<<<<<< HEAD
     const response = await mongodb.getDatabase().db().collection('comments').insertOne(comment);
+=======
+    const response = await db.collection('comments').insertOne(comment);
+>>>>>>> 0f99f7afb6e624a5e6e6f4d534d73784becd2f5d
 
     if (response.acknowledged) {
       return res.status(201).json({ message: "Comment created successfully.", comment });
