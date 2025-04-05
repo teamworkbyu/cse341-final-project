@@ -1,0 +1,236 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Task Management API",
+      "description": "API documentation for the Task Management API",
+      "version": "1.0.0"
+    },
+    "host": "localhost:8000",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "Categories",
+        "description": "Endpoints for managing categories"
+      },
+      {
+        "name": "Tasks",
+        "description": "Endpoints for managing tasks"
+      },
+      {
+        "name": "Users",
+        "description": "Endpoints for managing users"
+      },
+      {
+        "name": "Comments",
+        "description": "Endpoints for managing comments"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/categories": {
+        "get": {
+          "tags": ["Categories"],
+          "summary": "Get all categories",
+          "description": "Returns a list of all categories",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "A list of categories",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Category"
+                }
+              }
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        },
+        "post": {
+          "tags": ["Categories"],
+          "summary": "Create a new category",
+          "description": "Creates a new category",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "category",
+              "description": "Category object to be created",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Category"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Category created successfully",
+              "schema": {
+                "$ref": "#/definitions/Category"
+              }
+            },
+            "400": {
+              "description": "Invalid input data"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/categories/{id}": {
+        "get": {
+          "tags": ["Categories"],
+          "summary": "Get a category by ID",
+          "description": "Returns a single category",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the category to retrieve"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Category found",
+              "schema": {
+                "$ref": "#/definitions/Category"
+              }
+            },
+            "404": {
+              "description": "Category not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        },
+        "put": {
+          "tags": ["Categories"],
+          "summary": "Update a category",
+          "description": "Updates an existing category",
+          "consumes": ["application/json"],
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the category to update"
+            },
+            {
+              "in": "body",
+              "name": "category",
+              "description": "Updated category object",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Category"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Category updated successfully",
+              "schema": {
+                "$ref": "#/definitions/Category"
+              }
+            },
+            "400": {
+              "description": "Invalid input data"
+            },
+            "404": {
+              "description": "Category not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        },
+        "delete": {
+          "tags": ["Categories"],
+          "summary": "Delete a category",
+          "description": "Deletes a category by ID",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "description": "ID of the category to delete"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Category deleted successfully"
+            },
+            "404": {
+              "description": "Category not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Work"
+          }
+        }
+      },
+      "Task": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "Complete project report"
+          },
+          "description": {
+            "type": "string",
+            "example": "Finish the report by end of the week"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "in_progress", "completed"]
+          },
+          "due_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-10-01T12:00:00Z"
+          },
+          "category_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "user_id": {
+            "type": "integer",
+            "example": 1
+          }
+        },
+        "required": ["title", "description", "status", "due_date", "category_id", "user_id"]
+      }
+    }
+  }
