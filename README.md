@@ -11,17 +11,42 @@ TEAM MEMBERS:
 Charles Ukoh
 Newton Sydric
 Taylor Brenden
+Rakell Da Silva
 
 
 Task	|   Team Member Assigned
-> Set up Node.js project	    |  Newton
-> Create GitHub repo and deploy to Render     |	Charles DONE(50%)
-> Set up MongoDB database	        |Charles  DONE(100%)
+> Set up Node.js project	    |  Newton & Charles
+> Create GitHub repo and deploy to Render     |	Charles
+> Set up MongoDB database	        |   Charles
+> Set up Render         |   Charles
 > Implement authentication (JWT)	    |   Newton & Taylor
-> CRUD operations (GET, POST, PUT, DELETE)	    |   Newton & Taylor
-> API documentation (Swagger)	        |   Taylor
+> CRUD operations (GET, POST, PUT, DELETE)	    |   Newton & Charles
+> API documentation (Swagger)	        |   Charles
 > Testing & Debugging	        |   Newton & Charles
-> Prepare video presentation	    |   Newton
+> Prepare video presentation	    |   Newton & Charles
 
 
 TIME-LINE:      4 Weeks!
+
+START PROGRAM
+Run these command in your terminal to load and update program dependencies>>
+
+npm install bcrypt@^5.1.1 cors@^2.8.5 dotenv@^16.4.7 express@^5.1.0 express-session@^1.18.1 express-validator@^7.2.1 jsonwebtoken@^9.0.2 mongoose@^8.13.1 passport@^0.7.0 passport-github@^1.1.0 swagger-autogen@^2.23.7 swagger-ui-express@^5.0.1
+
+RUN TERMINAL:
+npm start
+
+Do not run : node swagger.js
+File was configured manually
+>>>>>>>
+
+GITHUB REPO:
+https://github.com/teamworkbyu/cse341-final-project
+RENDER:
+https://cse341-final-project-2q9o.onrender.com
+
+
+**********************************************************************
+
+Progress Report
+

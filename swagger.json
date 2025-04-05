@@ -29,62 +29,13 @@
     "http"
   ],
   "paths": {
-    "/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/github/callback": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/login": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/logout": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api-docs": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
     "/categories/": {
       "get": {
-        "description": "",
+        "tags": ["Categories"],
+        "summary": "Retrieve a list of all categories",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "A list of categories"
           },
           "401": {
             "description": "Unauthorized"
@@ -95,46 +46,35 @@
         }
       },
       "post": {
-        "description": "",
+        "tags": ["Categories"],
+        "summary": "Create a new category",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "description": {
-                  "example": "any"
-                },
-                "individualName": {
-                  "example": "any"
-                }
+                "name": { "type": "string", "example": "Sample Category" },
+                "description": { "type": "string", "example": "Description of the category" },
+                "individualName": { "type": "string", "example": "Individual Name" }
               }
             }
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "201": { "description": "Category created successfully" },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" },
+          "500": { "description": "Internal Server Error" }
         }
       }
     },
     "/categories/{id}": {
       "get": {
-        "description": "",
+        "tags": ["Categories"],
+        "summary": "Get a specific category by ID",
         "parameters": [
           {
             "name": "id",
@@ -144,22 +84,15 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "Category retrieved successfully" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Category not found" },
+          "500": { "description": "Internal Server Error" }
         }
       },
       "put": {
-        "description": "",
+        "tags": ["Categories"],
+        "summary": "Update a specific category by ID",
         "parameters": [
           {
             "name": "id",
@@ -170,42 +103,28 @@
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "description": {
-                  "example": "any"
-                },
-                "individualName": {
-                  "example": "any"
-                }
+                "name": { "type": "string", "example": "Updated Category" },
+                "description": { "type": "string", "example": "Updated description" },
+                "individualName": { "type": "string", "example": "Updated Individual Name" }
               }
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "Category updated successfully" },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Category not found" },
+          "500": { "description": "Internal Server Error" }
         }
       },
       "delete": {
-        "description": "",
+        "tags": ["Categories"],
+        "summary": "Delete a specific category by ID",
         "parameters": [
           {
             "name": "id",
@@ -215,27 +134,20 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "Category deleted successfully" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Category not found" },
+          "500": { "description": "Internal Server Error" }
         }
       }
     },
     "/tasks/": {
       "get": {
-        "description": "",
+        "tags": ["Tasks"],
+        "summary": "Retrieve a list of all tasks",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "A list of tasks"
           },
           "401": {
             "description": "Unauthorized"
@@ -246,52 +158,37 @@
         }
       },
       "post": {
-        "description": "",
+        "tags": ["Tasks"],
+        "summary": "Create a new task",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "title": {
-                  "example": "any"
-                },
-                "description": {
-                  "example": "any"
-                },
-                "status": {
-                  "example": "any"
-                },
-                "priority": {
-                  "example": "any"
-                },
-                "dueDate": {
-                  "example": "any"
-                }
+                "title": { "type": "string", "example": "Task Title" },
+                "description": { "type": "string", "example": "Task description" },
+                "status": { "type": "string", "example": "Pending" },
+                "priority": { "type": "string", "example": "High" },
+                "dueDate": { "type": "string", "format": "date", "example": "2025-12-31" }
               }
             }
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "201": { "description": "Task created successfully" },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" },
+          "500": { "description": "Internal Server Error" }
         }
       }
     },
     "/tasks/{id}": {
       "get": {
-        "description": "",
+        "tags": ["Tasks"],
+        "summary": "Get a specific task by ID",
         "parameters": [
           {
             "name": "id",
@@ -301,22 +198,15 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "Task retrieved successfully" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Task not found" },
+          "500": { "description": "Internal Server Error" }
         }
       },
       "put": {
-        "description": "",
+        "tags": ["Tasks"],
+        "summary": "Update a specific task by ID",
         "parameters": [
           {
             "name": "id",
@@ -327,48 +217,30 @@
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "title": {
-                  "example": "any"
-                },
-                "description": {
-                  "example": "any"
-                },
-                "status": {
-                  "example": "any"
-                },
-                "priority": {
-                  "example": "any"
-                },
-                "dueDate": {
-                  "example": "any"
-                }
+                "title": { "type": "string", "example": "Updated Task Title" },
+                "description": { "type": "string", "example": "Updated task description" },
+                "status": { "type": "string", "example": "Completed" },
+                "priority": { "type": "string", "example": "Low" },
+                "dueDate": { "type": "string", "format": "date", "example": "2025-12-31" }
               }
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "Task updated successfully" },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Task not found" },
+          "500": { "description": "Internal Server Error" }
         }
       },
       "delete": {
-        "description": "",
+        "tags": ["Tasks"],
+        "summary": "Delete a specific task by ID",
         "parameters": [
           {
             "name": "id",
@@ -378,27 +250,20 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "Task deleted successfully" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Task not found" },
+          "500": { "description": "Internal Server Error" }
         }
       }
     },
     "/users/": {
       "get": {
-        "description": "",
+        "tags": ["Users"],
+        "summary": "Retrieve a list of all users",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "A list of users"
           },
           "401": {
             "description": "Unauthorized"
@@ -409,58 +274,39 @@
         }
       },
       "post": {
-        "description": "",
+        "tags": ["Users"],
+        "summary": "Create a new user",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "favoriteColor": {
-                  "example": "any"
-                },
-                "age": {
-                  "example": "any"
-                },
-                "title": {
-                  "example": "any"
-                },
-                "birthDate": {
-                  "example": "any"
-                },
-                "birthPlace": {
-                  "example": "any"
-                }
+                "name": { "type": "string", "example": "John Doe" },
+                "email": { "type": "string", "example": "john.doe@example.com" },
+                "favoriteColor": { "type": "string", "example": "Blue" },
+                "age": { "type": "integer", "example": 30 },
+                "title": { "type": "string", "example": "Developer" },
+                "birthDate": { "type": "string", "format": "date", "example": "1995-01-01" },
+                "birthPlace": { "type": "string", "example": "New York" }
               }
             }
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "201": { "description": "User created successfully" },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" },
+          "500": { "description": "Internal Server Error" }
         }
       }
     },
     "/users/{id}": {
       "get": {
-        "description": "",
+        "tags": ["Users"],
+        "summary": "Get a specific user by ID",
         "parameters": [
           {
             "name": "id",
@@ -470,22 +316,15 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "User retrieved successfully" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "User not found" },
+          "500": { "description": "Internal Server Error" }
         }
       },
       "put": {
-        "description": "",
+        "tags": ["Users"],
+        "summary": "Update a specific user by ID",
         "parameters": [
           {
             "name": "id",
@@ -496,54 +335,32 @@
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "favoriteColor": {
-                  "example": "any"
-                },
-                "age": {
-                  "example": "any"
-                },
-                "title": {
-                  "example": "any"
-                },
-                "birthDate": {
-                  "example": "any"
-                },
-                "birthPlace": {
-                  "example": "any"
-                }
+                "name": { "type": "string", "example": "Updated Name" },
+                "email": { "type": "string", "example": "updated.email@example.com" },
+                "favoriteColor": { "type": "string", "example": "Green" },
+                "age": { "type": "integer", "example": 31 },
+                "title": { "type": "string", "example": "Senior Developer" },
+                "birthDate": { "type": "string", "format": "date", "example": "1995-01-01" },
+                "birthPlace": { "type": "string", "example": "Los Angeles" }
               }
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "User updated successfully" },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "User not found" },
+          "500": { "description": "Internal Server Error" }
         }
       },
       "delete": {
-        "description": "",
+        "tags": ["Users"],
+        "summary": "Delete a specific user by ID",
         "parameters": [
           {
             "name": "id",
@@ -553,27 +370,20 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "User deleted successfully" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "User not found" },
+          "500": { "description": "Internal Server Error" }
         }
       }
     },
     "/comments/": {
       "get": {
-        "description": "",
+        "tags": ["Comments"],
+        "summary": "Retrieve a list of all comments",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "A list of comments"
           },
           "401": {
             "description": "Unauthorized"
@@ -584,43 +394,34 @@
         }
       },
       "post": {
-        "description": "",
+        "tags": ["Comments"],
+        "summary": "Create a new comment",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "description": {
-                  "example": "any"
-                },
-                "completion": {
-                  "example": "any"
-                }
+                "description": { "type": "string", "example": "Comment description" },
+                "completion": { "type": "boolean", "example": false }
               }
             }
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "201": { "description": "Comment created successfully" },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" },
+          "500": { "description": "Internal Server Error" }
         }
       }
     },
     "/comments/{id}": {
       "get": {
-        "description": "",
+        "tags": ["Comments"],
+        "summary": "Get a specific comment by ID",
         "parameters": [
           {
             "name": "id",
@@ -630,22 +431,15 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "Comment retrieved successfully" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Comment not found" },
+          "500": { "description": "Internal Server Error" }
         }
       },
       "put": {
-        "description": "",
+        "tags": ["Comments"],
+        "summary": "Update a specific comment by ID",
         "parameters": [
           {
             "name": "id",
@@ -656,39 +450,27 @@
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "description": {
-                  "example": "any"
-                },
-                "completion": {
-                  "example": "any"
-                }
+                "description": { "type": "string", "example": "Updated comment description" },
+                "completion": { "type": "boolean", "example": true }
               }
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "Comment updated successfully" },
+          "400": { "description": "Bad Request" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Comment not found" },
+          "500": { "description": "Internal Server Error" }
         }
       },
       "delete": {
-        "description": "",
+        "tags": ["Comments"],
+        "summary": "Delete a specific comment by ID",
         "parameters": [
           {
             "name": "id",
@@ -698,18 +480,50 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
+          "200": { "description": "Comment deleted successfully" },
+          "401": { "description": "Unauthorized" },
+          "404": { "description": "Comment not found" },
+          "500": { "description": "Internal Server Error" }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "description": "Welcome message",
+        "responses": {
+          "200": { "description": "OK" }
+        }
+      }
+    },
+    "/github/callback": {
+      "get": {
+        "description": "GitHub OAuth callback",
+        "responses": {
+          "default": { "description": "" }
+        }
+      }
+    },
+    "/login": {
+      "get": {
+        "description": "GitHub login",
+        "responses": {
+          "default": { "description": "" }
+        }
+      }
+    },
+    "/logout": {
+      "get": {
+        "description": "Logout from the application",
+        "responses": {
+          "default": { "description": "" }
+        }
+      }
+    },
+    "/api-docs": {
+      "get": {
+        "description": "API documentation",
+        "responses": {
+          "default": { "description": "" }
         }
       }
     }

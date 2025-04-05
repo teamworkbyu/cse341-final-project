@@ -33,12 +33,13 @@ const getCommentById = async (req, res) => {
 // Create a new comment
 const createComment = async (req, res) => {
   try {
+    const db = mongodb.getDatabase();
     const comment = {
         description: req.body.description,
         completion: req.body.completion,
     };
 
-    const response = await mongodb.getDatabase().db().collection('comments').insertOne(comment);
+    const response = await db.collection('comments').insertOne(comment);
 
     if (response.acknowledged) {
         return res.status(201).json({ message: "Comment created successfully.", comment });
