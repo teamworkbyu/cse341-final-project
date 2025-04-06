@@ -5,10 +5,10 @@
     "description": "API documentation for the Task Management API",
     "version": "1.0.0"
   },
-  "host": "localhost:8000",
+  "host": "cse341-final-project-2q9o.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "tags": [
     {
