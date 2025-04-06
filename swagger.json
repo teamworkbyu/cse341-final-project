@@ -6,7 +6,7 @@
     "description": "API documentation for the Task Management API",
     "version": "1.0.0"
   },
-  "host": "cse341-final-project-2q9o.onrender.com",
+  "host": "cse341-final-project-1.onrender.com",
   "basePath": "/",
   "schemes": [
     "https"
