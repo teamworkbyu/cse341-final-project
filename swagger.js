@@ -6,7 +6,7 @@ const doc = {
         description: 'API documentation for the Task Management API'
     },
     host: 'https://cse341-final-project-dj1x.onrender.com',
-    schemes: ['http'],
+    schemes: ['https'],
     tags: [
         {
             name: "Categories",
