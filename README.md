@@ -26,7 +26,7 @@ Task	|   Team Member Assigned
 > Prepare video presentation	    |   Newton & Charles
 
 
-TIME-LINE:      4 Weeks!
+TIME-LINE:      3 Weeks!
 
 START PROGRAM
 Run these command in your terminal to load and update program dependencies>>
