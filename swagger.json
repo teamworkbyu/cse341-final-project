@@ -405,7 +405,7 @@
               "type": "object",
               "properties": {
                 "description": { "type": "string", "example": "Comment description" },
-                "completion": { "type": "boolean", "example": false }
+                "completion": { "type": "any", "example": "any" }
               }
             }
           }
@@ -455,7 +455,7 @@
               "type": "object",
               "properties": {
                 "description": { "type": "string", "example": "Updated comment description" },
-                "completion": { "type": "boolean", "example": true }
+                "completion": { "type": "any", "example": "any" }
               }
             }
           }
