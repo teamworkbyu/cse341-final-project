@@ -14,7 +14,7 @@ const cors = require('cors');
 
 
 const PORT = process.env.PORT || 8000;
-// const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost:27017/task-manager'
+
 app.use(express.json()); 
 app
   .use(bodyParser.json())
