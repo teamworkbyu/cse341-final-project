@@ -14,7 +14,7 @@ const cors = require('cors');
 
 
 const PORT = process.env.PORT || 8000;
-// const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost:27017/task-manager'
+
 app.use(express.json()); 
 app
   .use(bodyParser.json())
@@ -27,8 +27,7 @@ app
         collectionName: 'sessions'
     }),
     cookie: {
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+        secure: false,
         maxAge: 14 * 24 * 60 * 60 * 1000
     }
   }))
@@ -86,8 +85,6 @@ app.get('/', (req, res) => {
   `);
 });
 
-
-const BASE_URL = process.env.BASE_URL || 'http://localhost:8000';
 app.get('/github/callback', 
   passport.authenticate('github', { failureRedirect: 'api-docs', session: false }), 
   (req, res) => {
@@ -95,7 +92,7 @@ app.get('/github/callback',
           id: req.user.id, 
           displayName: req.user.displayName || req.user.username || req.user.name
       };
-      res.redirect(BASE_URL + '/');
+      res.redirect('/');
   }
 );
 
