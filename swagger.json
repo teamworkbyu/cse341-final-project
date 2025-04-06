@@ -7,6 +7,9 @@
   },
   "host": "localhost:8000",
   "basePath": "/",
+  "schemes": [
+    "http"
+  ],
   "tags": [
     {
       "name": "Categories",
@@ -25,10 +28,40 @@
       "description": "Endpoints for managing comments"
     }
   ],
-  "schemes": [
-    "http"
-  ],
+  
   "paths": {
+    "/github/callback": {
+      "get": {
+        "description": "GitHub OAuth callback",
+        "responses": {
+          "default": { "description": "" }
+        }
+      }
+    },
+    "/login": {
+      "get": {
+        "description": "GitHub login",
+        "responses": {
+          "default": { "description": "" }
+        }
+      }
+    },
+    "/logout": {
+      "get": {
+        "description": "Logout from the application",
+        "responses": {
+          "default": { "description": "" }
+        }
+      }
+    },
+    "/api-docs": {
+      "get": {
+        "description": "API documentation",
+        "responses": {
+          "default": { "description": "" }
+        }
+      }
+    },
     "/categories/": {
       "get": {
         "tags": ["Categories"],
@@ -484,46 +517,6 @@
           "401": { "description": "Unauthorized" },
           "404": { "description": "Comment not found" },
           "500": { "description": "Internal Server Error" }
-        }
-      }
-    },
-    "/": {
-      "get": {
-        "description": "Welcome message",
-        "responses": {
-          "200": { "description": "OK" }
-        }
-      }
-    },
-    "/github/callback": {
-      "get": {
-        "description": "GitHub OAuth callback",
-        "responses": {
-          "default": { "description": "" }
-        }
-      }
-    },
-    "/login": {
-      "get": {
-        "description": "GitHub login",
-        "responses": {
-          "default": { "description": "" }
-        }
-      }
-    },
-    "/logout": {
-      "get": {
-        "description": "Logout from the application",
-        "responses": {
-          "default": { "description": "" }
-        }
-      }
-    },
-    "/api-docs": {
-      "get": {
-        "description": "API documentation",
-        "responses": {
-          "default": { "description": "" }
         }
       }
     }
