@@ -10,9 +10,9 @@ router.use('/users', isAuthenticated, require('./users'));
 router.use('/comments', isAuthenticated, require('./comments'));
 
 
-// router.get('/', (req, res) => {
-//   res.send('Hello! Welcome to our Task Management API. Please login to access the API.');
-// });
+  router.get('/', (req, res) => {
+  res.send('Hello! Welcome to our Task Management API. Please login to access the API.');
+});
 
 router.get('/login', passport.authenticate('github'), (req, res) => {});
 
