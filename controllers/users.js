@@ -1,15 +1,18 @@
 const router = require('express').Router();
 const mongodb = require('../config/database');
 const ObjectId = require('mongodb').ObjectId;
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
+const JWT_SECRET = process.env.JWT_SECRET || 'supersecretkey';
 
 // Get all users
 const getUsers = async (req, res) => {
   try {
     const result = await mongodb.getDatabase().db().collection('users').find().toArray();
-    res.setHeader('Content-Type', 'application/json');
     res.status(200).json(result);
   } catch (error) {
-    res.status(500).json({ message: "Error retrieving countries", error: error.message });
+    res.status(500).json({ message: "Error retrieving users", error: error.message });
   }
 };
 
@@ -18,65 +21,84 @@ const getUserById = async (req, res) => {
   try {
     const userId = new ObjectId(req.params.id);
     const user = await mongodb.getDatabase().db().collection('users').findOne({ _id: userId });
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found." });
-    }
-
-    res.setHeader('Content-Type', 'application/json');
+    if (!user) return res.status(404).json({ message: "User not found." });
     res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ message: "Invalid ID format or server error.", error: error.message });
+    res.status(500).json({ message: "Invalid ID or server error", error: error.message });
   }
 };
 
-// Create a new user
-const createUser = async (req, res) => {
+// Register (create new user with hashed password)
+const register = async (req, res) => {
   try {
-    const user = {
-      name: req.body.name,
-      email: req.body.email,
-      favoriteColor: req.body.favoriteColor,
-      age: req.body.age,
-      title: req.body.title,
-      birthDate: req.body.birthDate,
-      birthPlace: req.body.birthPlace,
-    };
-    const database = mongodb.getDatabase(); // Get the database client
-    const db = database.db(); // Call db() on the client to get the Db instance
-    const response = await db.collection('users').insertOne(user);
+    const { name, email, password, favoriteColor, age, title, birthDate, birthPlace } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
 
+    const user = {
+      name,
+      email,
+      password: hashedPassword,
+      favoriteColor,
+      age,
+      title,
+      birthDate,
+      birthPlace
+    };
+
+    const db = mongodb.getDatabase().db();
+    const existingUser = await db.collection('users').findOne({ email });
+    if (existingUser) return res.status(409).json({ message: "User already exists." });
+
+    const response = await db.collection('users').insertOne(user);
     if (response.acknowledged) {
-      return res.status(201).json({ message: "User created successfully.", user });
+      return res.status(201).json({ message: "User registered successfully." });
     } else {
-      return res.status(500).json({ message: "Failed to create user." });
+      return res.status(500).json({ message: "User registration failed." });
     }
   } catch (error) {
-    return res.status(500).json({ message: "Server error", error: error.message })
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
-// Update a user by ID
+// Login and return JWT
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const db = mongodb.getDatabase().db();
+    const user = await db.collection('users').findOne({ email });
+
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return res.status(401).json({ message: "Invalid credentials." });
+    }
+
+    const token = jwt.sign({ userId: user._id, email: user.email }, JWT_SECRET, { expiresIn: '1d' });
+    res.status(200).json({ token });
+  } catch (error) {
+    res.status(500).json({ message: "Login failed", error: error.message });
+  }
+};
+
+// Update user
 const updateUser = async (req, res) => {
   try {
     const userId = new ObjectId(req.params.id);
-    const user = {
+    const updatedUser = {
       name: req.body.name,
       email: req.body.email,
       favoriteColor: req.body.favoriteColor,
       age: req.body.age,
       title: req.body.title,
       birthDate: req.body.birthDate,
-      birthPlace: req.body.birthPlace,
+      birthPlace: req.body.birthPlace
     };
 
     const response = await mongodb.getDatabase().db().collection('users').updateOne(
       { _id: userId },
-      { $set: user }
+      { $set: updatedUser }
     );
 
     if (response.modifiedCount > 0) {
-      return res.status(200).json({ message: "user updated successfully." });
+      return res.status(200).json({ message: "User updated successfully." });
     } else {
       return res.status(404).json({ message: "No changes made or user not found." });
     }
@@ -85,11 +107,10 @@ const updateUser = async (req, res) => {
   }
 };
 
-// Delete a user by ID
+// Delete user
 const deleteUser = async (req, res) => {
   try {
     const userId = new ObjectId(req.params.id);
-
     const response = await mongodb.getDatabase().db().collection('users').deleteOne({ _id: userId });
 
     if (response.deletedCount > 0) {
@@ -102,11 +123,11 @@ const deleteUser = async (req, res) => {
   }
 };
 
-// Export the functions to be used in routes
 module.exports = {
   getUsers,
   getUserById,
-  createUser,
+  register,
+  login,
   updateUser,
   deleteUser
 };
