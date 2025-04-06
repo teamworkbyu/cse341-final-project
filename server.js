@@ -6,6 +6,7 @@ const app = express();
 const BodyParser = require('body-parser');
 const passport = require('passport');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const { body } = require('express-validator');
 const bodyParser = require('body-parser');
 const GitHubStrategy = require('passport-github').Strategy;
@@ -17,9 +18,17 @@ const PORT = process.env.PORT || 8000;
 app
   .use(bodyParser.json())
   .use(session({
-     secret: 'secret',
-     resave: false,
-     saveUninitialized: true,
+    secret: process.env.SESSION_SECRET || "secret",
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGODB_URL,
+        collectionName: 'sessions'
+    }),
+    cookie: {
+        secure: false,
+        maxAge: 14 * 24 * 60 * 60 * 1000
+    }
   }))
   // Basic express initialization
   .use(passport.initialize())
