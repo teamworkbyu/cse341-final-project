@@ -27,7 +27,8 @@ app
         collectionName: 'sessions'
     }),
     cookie: {
-        secure: false,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
         maxAge: 14 * 24 * 60 * 60 * 1000
     }
   }))
