@@ -15,6 +15,7 @@ const cors = require('cors');
 
 const PORT = process.env.PORT || 8000;
 
+app.use(express.json()); 
 app
   .use(bodyParser.json())
   .use(session({
@@ -32,9 +33,9 @@ app
   }))
   // Basic express initialization
   .use(passport.initialize())
-  // Passport session initialization
+  
   .use(passport.session())
-  // Allow passport to use express sessions
+  
   .use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
@@ -69,14 +70,31 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
-app.get('/', (req, res) => {res.send(req.session.user =! undefined ? `Logged in as ${req.session.user.displayName}` : 'Logged out')});
+//app.get('/', (req, res) => {res.send(req.session.user =! undefined ? `Logged in as ${req.session.user.displayName}` : 'Logged out')});
 
-app.get('/github/callback', passport.authenticate('github', {
-  failureRedirect: '/api-docs', session: false}),
+app.get('/', (req, res) => {
+  let message = req.query.message;
+  let loginMessage = req.session.user !== undefined
+      ? `You are now logged in as ${req.session.user.displayName}`
+      : "Hello! Welcome to our Task Management API. Please login to access the API.";
+  res.send(`
+      <div>
+          ${loginMessage}
+          ${message ? `<div>${message}</div>` : ''}
+      </div>
+  `);
+});
+
+app.get('/github/callback', 
+  passport.authenticate('github', { failureRedirect: 'api-docs', session: false }), 
   (req, res) => {
-    req.session.user = req.user;
-    res.redirect('/');
-  });
+      req.session.user = {
+          id: req.user.id, 
+          displayName: req.user.displayName || req.user.username || req.user.name
+      };
+      res.redirect('/');
+  }
+);
 
 mongodb.initDb((err) => {
   if (err) {
