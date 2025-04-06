@@ -85,6 +85,8 @@ app.get('/', (req, res) => {
   `);
 });
 
+
+const BASE_URL = process.env.BASE_URL || 'http://localhost:8000';
 app.get('/github/callback', 
   passport.authenticate('github', { failureRedirect: 'api-docs', session: false }), 
   (req, res) => {
@@ -92,7 +94,7 @@ app.get('/github/callback',
           id: req.user.id, 
           displayName: req.user.displayName || req.user.username || req.user.name
       };
-      res.redirect('/');
+      res.redirect(BASE_URL + '/');
   }
 );
 
