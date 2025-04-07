@@ -22,6 +22,7 @@ app.use('/', require('./routes/index'));
 // Root route
 app.get('/', (req, res) => {
   res.send("👋 Welcome to the Task Management API! Please login with your credentials to get a JWT.");
+
 });
 
 // Database connection & server start

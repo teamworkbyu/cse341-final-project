@@ -106,7 +106,7 @@ const updateTask = async (req, res) => {
 // Delete task
 const deleteTask = async (req, res) => {
   try {
-    const userId = new ObjectId(req.params.id);
+    const taskId = new ObjectId(req.params.id);
     const response = await mongodb.getDatabase().db().collection('tasks').deleteOne({ _id: taskId });
 
     if (response.deletedCount > 0) {

@@ -72,6 +72,7 @@ const login = async (req, res) => {
     }
 
     const token = jwt.sign({ userId: user._id, email: user.email }, JWT_SECRET, { expiresIn: '1d' });
+    console.log(token);
     res.status(200).json({ token });
   } catch (error) {
     res.status(500).json({ message: "Login failed", error: error.message });
