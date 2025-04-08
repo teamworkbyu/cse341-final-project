@@ -56,3 +56,6 @@ GETALL, GETBYID, POST, PUT, DELETE
 
 v1.2
 Sessions Added to store cookies
+
+Backup file restored
+

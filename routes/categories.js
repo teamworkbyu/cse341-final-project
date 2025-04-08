@@ -11,10 +11,8 @@ const { isAuthenticated } = require('../middlewares/auth');
 
 router.get('/', isAuthenticated, categoriesController.getCategories);
 router.get('/:id', isAuthenticated, categoriesController.getCategoryById);
-// router.post('/', isAuthenticated, validateCategory, categoriesController.createCategory);
+router.post('/', isAuthenticated, validateCategory, categoriesController.createCategory);
 router.put('/:id', isAuthenticated, validateCategory, categoriesController.updateCategory);
 router.delete('/:id', isAuthenticated, categoriesController.deleteCategory);
-router.post('/register', categoriesController.register);
-router.post('/login', categoriesController.login);
 
 module.exports = router;

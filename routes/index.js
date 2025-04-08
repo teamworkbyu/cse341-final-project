@@ -1,24 +1,26 @@
-const express = require('express');
-const router = express.Router();
-const jwt = require('jsonwebtoken');
+const passport = require('passport');
 const { isAuthenticated } = require('../middlewares/auth');
 
-// Swagger docs route (no auth)
+const router = require('express').Router();
+
 router.use('/', require('./swagger'));
 
-// Public auth routes (register and login)
-router.use('/users', require('./users'));
-
-
-
-// Protected routes
 router.use('/categories', isAuthenticated, require('./categories'));
 router.use('/tasks', isAuthenticated, require('./tasks'));
+router.use('/users', isAuthenticated, require('./users'));
 router.use('/comments', isAuthenticated, require('./comments'));
 
-// Welcome route
-// router.get('/', (req, res) => {
-//   res.send('Hello! Welcome to our Task Management API. Please login to access the API.');
-// });
+
+router.get('/login', passport.authenticate('github'), (req, res) => { });
+
+router.get('/logout', (req, res, next) => {
+  req.session.destroy(err => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/?message=You have been Logged out successfully');
+  });
+});
+
 
 module.exports = router;

@@ -8,10 +8,8 @@ const { isAuthenticated } = require('../middlewares/auth');
 // Define routes for comments
 router.get('/', isAuthenticated, commentsController.getComments);
 router.get('/:id', isAuthenticated, commentsController.getCommentById);
-// router.post('/', isAuthenticated, validateComment, commentsController.createComment);
+router.post('/', isAuthenticated, validateComment, commentsController.createComment);
 router.put('/:id', isAuthenticated, validateComment, commentsController.updateComment);
 router.delete('/:id', isAuthenticated, commentsController.deleteComment);
-router.post('/register', commentsController.register);
-router.post('/login', commentsController.login);
 
 module.exports = router;

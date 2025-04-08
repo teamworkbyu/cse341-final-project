@@ -56,4 +56,3 @@ const validateComment = [
 ];
 
 module.exports = { validateCategory, validateTask, validateUser, validateComment };
-// These files are subject to change as assigned to task owner
