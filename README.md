@@ -33,6 +33,8 @@ Run these command in your terminal to load and update program dependencies>>
 
 npm install bcrypt@^5.1.1 cors@^2.8.5 dotenv@^16.4.7 express@^5.1.0 express-session@^1.18.1 express-validator@^7.2.1 jsonwebtoken@^9.0.2 mongoose@^8.13.1 passport@^0.7.0 passport-github@^1.1.0 swagger-autogen@^2.23.7 swagger-ui-express@^5.0.1
 npm install connect-mongo
+npm install --save-dev jest supertest
+
 
 RUN TERMINAL:
 npm start
@@ -55,7 +57,9 @@ Program now Runs successfull using Collection Database from MONGODB
 GETALL, GETBYID, POST, PUT, DELETE
 
 v1.2
-Sessions Added to store cookies
+> Sessions Added to store cookies
+> Backup file restored
+> Redirection issues fixed. Api continues on published host
+> Now implementing TESTING
 
-Backup file restored
 
