@@ -15,15 +15,15 @@ Rakell Da Silva
 
 
 Task	|   Team Member Assigned
-> Set up Node.js project	    |  Newton & Charles
-> Create GitHub repo and deploy to Render     |	Charles
-> Set up MongoDB database	        |   Charles
-> Set up Render         |   Charles
-> Implement authentication (JWT)	    |   Newton & Taylor
-> CRUD operations (GET, POST, PUT, DELETE)	    |   Newton & Charles
-> API documentation (Swagger)	        |   Charles
-> Testing & Debugging	        |   Newton & Charles
-> Prepare video presentation	    |   Newton & Charles
+// Set up Node.js project	    |  Newton & Charles
+Create GitHub repo and deploy to Render     |	Charles
+Set up MongoDB database	        |   Charles
+Set up Render         |   Charles
+Implement authentication (JWT)	    |   Newton & Taylor
+CRUD operations (GET, POST, PUT, DELETE)	    |   Newton & Charles
+API documentation (Swagger)	        |   Charles
+Testing & Debugging	        |   Charles
+Prepare video presentation	    |   Newton & Charles
 
 
 TIME-LINE:      3 Weeks!
@@ -57,9 +57,15 @@ Program now Runs successfull using Collection Database from MONGODB
 GETALL, GETBYID, POST, PUT, DELETE
 
 v1.2
-> Sessions Added to store cookies
-> Backup file restored
-> Redirection issues fixed. Api continues on published host
-> Now implementing TESTING
+Sessions Added to store cookies
+Backup file restored
+Redirection issues fixed. Api continues on published render host
+Now implementing TESTING
+
+v2.0
+Testing successful on all Routes  -  Run terminal - npm install --save-dev jest supertest
+Test units using - npm test
+
+100% Complete
 
 
